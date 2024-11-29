@@ -10,9 +10,6 @@ Student......: Ricardo Contreras
 ================================================================================================"""
 
 from flask import Flask, jsonify, request
-
-#   Student data
-
 app = Flask(__name__)
 
 
@@ -46,11 +43,10 @@ def insert_values():
     c = value_data.get('c', 0)
     d = value_data.get('d', 0)
 
-    # Almacenamos los valores en la variable global
     global global_values
     global_values = {'a': a, 'b': b, 'c': c, 'd': d}
 
-    # Calculamos el total de valores
+
     total_values = len([a, b, c, d])
 
     response = {
@@ -69,7 +65,6 @@ def insert_values():
 def get_statistics():
     global global_values
 
-    # Verificamos si hay datos en global_values
     if not global_values:
         return jsonify({"error": "No data available This is just a Safety method"}), 404
 
@@ -146,11 +141,9 @@ def getr_exponent():
 
 @app.route('/int/<int:n>', methods=['GET'])
 def get_integer_capacity(n):
-    # Comprobamos si el valor proporcionado por el usuario es un número válido
     if n <= 0:
         return jsonify({"error": "Number must be more the 0"}), 400
 
-    # Calculamos el rango de valores dependiendo del tamaño en bits
     con_signo = f"-{2**(n*8-1)} to {2**(n*8-1)-1}"
     sin_signo = f"0 to {2**(n*8)-1}"
     n_bits = n * 8
